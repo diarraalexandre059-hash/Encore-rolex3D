@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   CheckCircle, ShieldCheck, Truck, Star, Sparkles,
   ArrowDown, PhoneCall, RefreshCw, Scissors, Flame,
-  HelpCircle, ChevronDown, Eye, Layers, Check, Zap, ShoppingBag
+  HelpCircle, ChevronDown, Eye, Layers, Check, Zap, ShoppingBag, Download, FileCode
 } from 'lucide-react';
 import OrderForm from './components/OrderForm';
 import AdminDashboard from './components/AdminDashboard';
@@ -136,10 +136,20 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 pb-16 md:pb-0">
-      {/* Top Notification Bar */}
-      <div className="bg-pink-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-semibold flex items-center justify-center gap-2 shadow-inner">
-        <Flame className="w-4 h-4 animate-bounce" />
-        <span>PROMOTION SPÉCIALE : -25% RÉDUCTION + LIVRAISON GRATUITE À OUAGADOUGOU !</span>
+      {/* Top Notification Bar with Direct Download Link */}
+      <div className="bg-pink-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-semibold flex flex-wrap items-center justify-center gap-3 shadow-inner">
+        <div className="flex items-center gap-1.5">
+          <Flame className="w-4 h-4 animate-bounce" />
+          <span>PROMOTION SPÉCIALE : -25% RÉDUCTION + LIVRAISON GRATUITE À OUAGADOUGOU !</span>
+        </div>
+        <a
+          href="/aliver-ecommerce-site.zip"
+          download="aliver-ecommerce-site.zip"
+          className="bg-white text-pink-700 hover:bg-pink-50 font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 transition border border-pink-200"
+        >
+          <Download className="w-3.5 h-3.5" />
+          Télécharger le projet complet (.ZIP)
+        </a>
       </div>
 
       {/* Header Bar */}
@@ -152,7 +162,18 @@ export default function App() {
             <span className="font-bold text-slate-800 hidden sm:inline text-sm">Hair & Beard Care</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Direct ZIP Download Link */}
+            <a
+              href="/aliver-ecommerce-site.zip"
+              download="aliver-ecommerce-site.zip"
+              className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-2 rounded-lg shadow flex items-center gap-1.5 transition border border-slate-800"
+              title="Télécharger l'archive ZIP du site"
+            >
+              <Download className="w-3.5 h-3.5 text-pink-400" />
+              <span className="hidden sm:inline">Télécharger ZIP</span>
+            </a>
+
             {/* Currency Selector */}
             <select
               value={currency}
@@ -168,13 +189,36 @@ export default function App() {
 
             <button
               onClick={scrollToForm}
-              className="bg-pink-600 hover:bg-pink-700 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-lg shadow-md hover:shadow-pink-200 transition"
+              className="bg-pink-600 hover:bg-pink-700 text-white text-xs sm:text-sm font-bold px-3.5 py-2 rounded-lg shadow-md hover:shadow-pink-200 transition"
             >
               Commander
             </button>
           </div>
         </div>
       </header>
+
+      {/* Direct Source Download Callout Banner */}
+      <div className="bg-slate-900 text-white py-3 px-4 border-b border-slate-800">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-pink-600/20 text-pink-400 flex items-center justify-center font-bold flex-shrink-0">
+              <FileCode className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-white">Code Source & Projet Complet Prêt à Déployer</p>
+              <p className="text-[11px] text-slate-400">Contient le frontend React/Tailwind, le backend Express/SQLite, la base de données et l'espace Admin.</p>
+            </div>
+          </div>
+          <a
+            href="/aliver-ecommerce-site.zip"
+            download="aliver-ecommerce-site.zip"
+            className="bg-pink-600 hover:bg-pink-700 active:scale-95 text-white font-extrabold text-xs px-4 py-2 rounded-lg shadow-md transition flex items-center gap-2 flex-shrink-0"
+          >
+            <Download className="w-4 h-4" />
+            Télécharger aliver-ecommerce-site.zip
+          </a>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-gray-50 to-white pt-6 pb-12 overflow-hidden">
@@ -369,7 +413,7 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-amber-400 font-bold">•</span>
-                  <span><strong>Rendu Ultra Discret :</strong> La poudre s'intègre naturellement sans effet peinture ni traces.</span>
+                  <span><strong>Rendu Ultra Discret :</strong> La poudre s'intègre naturally sans effet peinture ni traces.</span>
                 </li>
               </ul>
             </div>
@@ -619,7 +663,16 @@ export default function App() {
             <p>© {new Date().getFullYear()} ALIVER Hair & Beard Care - Tous droits réservés.</p>
             <p className="text-slate-500 mt-1">Livraison express disponible à Ouagadougou et expédition dans la sous-région.</p>
           </div>
-          <div>
+          <div className="flex items-center gap-4">
+            <a
+              href="/aliver-ecommerce-site.zip"
+              download="aliver-ecommerce-site.zip"
+              className="text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1 underline"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Télécharger le Projet (.ZIP)
+            </a>
+            <span className="text-slate-700">|</span>
             <button
               onClick={() => {
                 window.history.pushState({}, '', '/admin');
