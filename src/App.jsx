@@ -43,28 +43,28 @@ const PRODUCT_VIEWS = [
     id: 'main',
     title: 'Vue Principale',
     badge: 'Packaging & Compact',
-    src: '/images/aliver-hair-shadow-black.jpeg',
+    src: '/images/aliver-view-1.png',
     description: 'Format compact tout-en-un élégant couleur Noir Intense'
   },
   {
     id: 'mirror',
     title: 'Miroir & Poudre',
     badge: 'Boîtier Ouvert',
-    src: '/images/aliver-hair-shadow-black.jpeg',
+    src: '/images/aliver-view-2.png',
     description: 'Ouverture supérieure avec miroir haute définition pour retouches express'
   },
   {
     id: 'puff',
     title: 'Houpette Éponge',
     badge: 'Base Applicatrice',
-    src: '/images/aliver-hair-shadow-black.jpeg',
+    src: '/images/aliver-view-3.png',
     description: 'Éponge douce amovible intégrée sous le boîtier pour un dosage précis'
   },
   {
     id: 'usage',
     title: 'Rendu Avant / Après',
     badge: 'Application Hairline',
-    src: '/images/aliver-hair-shadow-black.jpeg',
+    src: '/images/aliver-view-4.png',
     description: 'Résultat immédiat : densité naturelle sur la barbe et la ligne frontale'
   }
 ];
