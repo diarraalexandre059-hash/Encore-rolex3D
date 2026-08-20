@@ -382,6 +382,61 @@ export default function App() {
         </div>
       </section>
 
+      {/* Before / After Transformation Gallery Section */}
+      <section className="py-10 sm:py-14 bg-slate-950 text-white">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="bg-pink-600/30 text-pink-400 font-bold text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-pink-500/40">
+              RÉSULTATS VISIBLES IMMÉDIATEMENT
+            </span>
+            <h2 className="text-xl sm:text-3xl font-extrabold mt-2.5 text-white">
+              Transformations Avant / Après
+            </h2>
+            <p className="text-slate-400 text-xs sm:text-sm mt-1">
+              Découvrez la différence spectaculaire sur la ligne de cheveux et la barbe dès la première application.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl p-2 sm:p-3">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-950">
+                <img
+                  src="/images/aliver-before-after-1.png"
+                  alt="ALIVER Avant Après - Ligne de cheveux et barbe"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 bg-pink-600 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                  Garnissage Barbe & Ligne
+                </div>
+              </div>
+              <div className="p-3 text-center">
+                <p className="text-xs sm:text-sm font-semibold text-slate-300">
+                  Comblement instantané des zones fines & réalignement des contours
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl p-2 sm:p-3">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-950">
+                <img
+                  src="/images/aliver-before-after-2.png"
+                  alt="ALIVER Avant Après - Densité cheveux"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                  Masquage Zones Clairsemées
+                </div>
+              </div>
+              <div className="p-3 text-center">
+                <p className="text-xs sm:text-sm font-semibold text-slate-300">
+                  Rendu 100% naturel sans effet de surcharge ni démarcation
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How to use - Enhanced with Rich Visual Illustrations */}
       <section className="py-10 sm:py-14 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-5xl mx-auto px-3 sm:px-4">
