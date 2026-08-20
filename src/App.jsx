@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   CheckCircle, ShieldCheck, Truck, Star, Sparkles,
   ArrowDown, PhoneCall, RefreshCw, Scissors, Flame,
-  HelpCircle, ChevronDown, Sparkle, Eye, Layers, Droplets, Check, Zap
+  HelpCircle, ChevronDown, Eye, Layers, Check, Zap, ShoppingBag
 } from 'lucide-react';
 import OrderForm from './components/OrderForm';
 import AdminDashboard from './components/AdminDashboard';
@@ -18,7 +18,7 @@ const CURRENCIES = {
 const FAQ_ITEMS = [
   {
     question: "La poudre ALIVER résiste-t-elle à la sueur et à la chaleur ?",
-    answer: "Oui ! La formule à base de pigments minéraux micro-finis est spécialement conçue pour être 100% Waterproof et Sweatproof. Elle ne coule pas, même sous une forte chaleur ou lors d'activités physiques intense."
+    answer: "Oui ! La formule à base de pigments minéraux micro-finis est spécialement conçue pour être 100% Waterproof et Sweatproof. Elle ne coule pas, même sous une forte chaleur ou lors d'activités physiques intenses."
   },
   {
     question: "Est-ce adapté pour la barbe des hommes et les cheveux des femmes ?",
@@ -38,11 +38,43 @@ const FAQ_ITEMS = [
   }
 ];
 
+const PRODUCT_VIEWS = [
+  {
+    id: 'main',
+    title: 'Vue Principale',
+    badge: 'Packaging & Compact',
+    src: '/images/aliver-hair-shadow-black.jpeg',
+    description: 'Format compact tout-en-un élégant couleur Noir Intense'
+  },
+  {
+    id: 'mirror',
+    title: 'Miroir & Poudre',
+    badge: 'Boîtier Ouvert',
+    src: '/images/aliver-hair-shadow-black.jpeg',
+    description: 'Ouverture supérieure avec miroir haute définition pour retouches express'
+  },
+  {
+    id: 'puff',
+    title: 'Houpette Éponge',
+    badge: 'Base Applicatrice',
+    src: '/images/aliver-hair-shadow-black.jpeg',
+    description: 'Éponge douce amovible intégrée sous le boîtier pour un dosage précis'
+  },
+  {
+    id: 'usage',
+    title: 'Rendu Avant / Après',
+    badge: 'Application Hairline',
+    src: '/images/aliver-hair-shadow-black.jpeg',
+    description: 'Résultat immédiat : densité naturelle sur la barbe et la ligne frontale'
+  }
+];
+
 export default function App() {
   const [currency, setCurrency] = useState('XOF');
   const [selectedBundle, setSelectedBundle] = useState(1);
   const [isAdminView, setIsAdminView] = useState(window.location.pathname === '/admin');
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -100,12 +132,14 @@ export default function App() {
     );
   }
 
+  const activeView = PRODUCT_VIEWS[activeImageIndex];
+
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white text-slate-900 pb-16 md:pb-0">
       {/* Top Notification Bar */}
       <div className="bg-pink-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-semibold flex items-center justify-center gap-2 shadow-inner">
         <Flame className="w-4 h-4 animate-bounce" />
-        <span>PROMOTION SPÉCIALE : -25% REDUCTION + LIVRAISON GRATUITE À OUAGADOUGOU !</span>
+        <span>PROMOTION SPÉCIALE : -25% RÉDUCTION + LIVRAISON GRATUITE À OUAGADOUGOU !</span>
       </div>
 
       {/* Header Bar */}
@@ -145,20 +179,49 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-gray-50 to-white pt-6 pb-12 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-            {/* Product Image Showcase - Horizontal / Landscape Presentation */}
+            {/* Interactive Multi-View Gallery */}
             <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-              <div className="rounded-2xl overflow-hidden border-2 border-gray-100 shadow-2xl bg-slate-950 p-2">
-                <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-900 flex items-center justify-center">
+              <div className="rounded-2xl overflow-hidden border-2 border-pink-100 shadow-2xl bg-slate-950 p-2">
+                <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-900 relative flex items-center justify-center">
                   <img
-                    src="/images/aliver-hair-shadow-black.jpeg"
-                    alt="ALIVER Hair Shadow Powder Noir"
-                    className="w-full h-full object-cover object-center rounded-xl transform hover:scale-105 transition duration-500"
+                    src={activeView.src}
+                    alt={`ALIVER Hair Shadow - ${activeView.title}`}
+                    className="w-full h-full object-cover object-center rounded-xl transition duration-300"
                   />
+                  <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md border border-pink-500/40 text-pink-400 font-bold text-xs px-3 py-1 rounded-full shadow-lg">
+                    {activeView.badge}
+                  </div>
                 </div>
               </div>
-              <div className="mt-3 flex items-center justify-center gap-4 text-xs font-semibold text-gray-600 bg-gray-100 py-2.5 rounded-xl border border-gray-200">
+
+              {/* View Selection Thumbnails */}
+              <div className="mt-3 grid grid-cols-4 gap-2">
+                {PRODUCT_VIEWS.map((view, index) => (
+                  <button
+                    key={view.id}
+                    onClick={() => setActiveImageIndex(index)}
+                    className={`relative rounded-xl overflow-hidden border-2 p-1 text-left transition duration-200 bg-white ${
+                      activeImageIndex === index
+                        ? 'border-pink-600 shadow-md ring-2 ring-pink-500/20'
+                        : 'border-gray-200 hover:border-gray-300 opacity-80 hover:opacity-100'
+                    }`}
+                  >
+                    <div className="aspect-[4/3] w-full overflow-hidden rounded-lg bg-gray-100 relative">
+                      <img src={view.src} alt={view.title} className="w-full h-full object-cover" />
+                      {activeImageIndex === index && (
+                        <div className="absolute inset-0 bg-pink-600/10" />
+                      )}
+                    </div>
+                    <p className="text-[10px] font-bold text-slate-800 mt-1 truncate text-center">
+                      {view.title}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-3 flex items-center justify-between text-xs font-semibold text-gray-600 bg-gray-100 py-2.5 px-3 rounded-xl border border-gray-200">
                 <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-600" /> Miroir & Éponge Intégrés</span>
                 <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-amber-500" /> Teinte : Noir Intense</span>
               </div>
@@ -262,7 +325,7 @@ export default function App() {
               Conçu pour Elle & pour Lui
             </h2>
             <p className="text-slate-400 text-sm mt-2">
-              Une formule poudre minérale naturelle d'haute précision couleur Noir Intense.
+              Une formule poudre minérale naturelle de haute précision couleur Noir Intense.
             </p>
           </div>
 
@@ -336,11 +399,9 @@ export default function App() {
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
 
               <div>
-                {/* Visual Graphic Representation */}
                 <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
                   <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">1</span>
 
-                  {/* Container Illustration of Puff/Cap Opening */}
                   <div className="relative flex flex-col items-center">
                     <div className="w-16 h-16 border-2 border-pink-500/80 rounded-full flex items-center justify-center bg-slate-800 shadow-lg animate-bounce">
                       <Layers className="w-8 h-8 text-pink-400" />
@@ -367,7 +428,6 @@ export default function App() {
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
 
               <div>
-                {/* Visual Graphic Representation */}
                 <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
                   <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">2</span>
 
@@ -397,7 +457,6 @@ export default function App() {
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
 
               <div>
-                {/* Visual Graphic Representation */}
                 <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
                   <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">3</span>
 
@@ -418,7 +477,7 @@ export default function App() {
               </div>
 
               <div className="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs font-semibold text-pink-600">
-                <Check className="w-4 h-4 mr-1" /> Tient jusqu'au prochain lavages
+                <Check className="w-4 h-4 mr-1" /> Tient jusqu'au prochain shampooing
               </div>
             </div>
 
@@ -537,6 +596,21 @@ export default function App() {
           />
         </div>
       </section>
+
+      {/* Sticky Mobile Quick Order CTA Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-pink-200 p-3 shadow-2xl md:hidden flex items-center justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-bold text-pink-600 uppercase tracking-wider">Promo ALIVER Noir</p>
+          <p className="text-lg font-black text-slate-900 leading-none">{formatPrice(7500)}</p>
+        </div>
+        <button
+          onClick={scrollToForm}
+          className="flex-1 bg-pink-600 hover:bg-pink-700 active:scale-95 text-white font-extrabold text-sm py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-1.5"
+        >
+          <ShoppingBag className="w-4 h-4" />
+          Commander (Payer à la Livraison)
+        </button>
+      </div>
 
       {/* Footer */}
       <footer className="bg-slate-950 text-slate-400 py-8 text-center text-xs border-t border-slate-800">
