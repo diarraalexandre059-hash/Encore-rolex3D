@@ -7,3 +7,4 @@
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
+1:17:19 AM [vite] (client) hmr update /src/App.jsx, /src/index.css

@@ -1,23 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import {
   CheckCircle, ShieldCheck, Truck, Star, Sparkles,
-  ArrowDown, PhoneCall, RefreshCw, Scissors, Flame
+  ArrowDown, PhoneCall, RefreshCw, Scissors, Flame,
+  HelpCircle, ChevronDown, Sparkle, Eye, Layers, Droplets, Check, Zap
 } from 'lucide-react';
 import OrderForm from './components/OrderForm';
 import AdminDashboard from './components/AdminDashboard';
 
 const CURRENCIES = {
-  XOF: { symbol: 'FCFA', rate: 1, label: 'FCFA (Burkina, Ségal, CI...)' },
+  XOF: { symbol: 'FCFA', rate: 1, label: 'FCFA (Burkina, Sénégal, CI...)' },
   EUR: { symbol: '€', rate: 0.00152, label: 'EUR (€)' },
   USD: { symbol: '$', rate: 0.00165, label: 'USD ($)' },
   GHS: { symbol: 'GH₵', rate: 0.025, label: 'GHS (Ghana)' },
   NGN: { symbol: '₦', rate: 2.5, label: 'NGN (Nigeria)' }
 };
 
+const FAQ_ITEMS = [
+  {
+    question: "La poudre ALIVER résiste-t-elle à la sueur et à la chaleur ?",
+    answer: "Oui ! La formule à base de pigments minéraux micro-finis est spécialement conçue pour être 100% Waterproof et Sweatproof. Elle ne coule pas, même sous une forte chaleur ou lors d'activités physiques intense."
+  },
+  {
+    question: "Est-ce adapté pour la barbe des hommes et les cheveux des femmes ?",
+    answer: "Absolument. Elle est universelle : pour les femmes, elle masque les racines blanches et redonne de l'épaisseur aux bordures fragilisées par les tresses. Pour les hommes, elle comble parfaitement les trous dans la barbe et ajuste les contours de la chevelure."
+  },
+  {
+    question: "Comment s'enlève la poudre ?",
+    answer: "La poudre s'élimine de manière très simple lors de votre shampooing habituel avec de l'eau tiède et du savon ou shampooing. Elle ne laisse aucun résidu collant ni tache."
+  },
+  {
+    question: "Combien de temps dure un flacon de 0.14 oz (4g) ?",
+    answer: "Pour une utilisation quotidienne sur les racines ou la barbe, un flacon dure en moyenne entre 2 et 3 mois."
+  },
+  {
+    question: "Comment se passe la livraison à Ouagadougou et en province ?",
+    answer: "La livraison est GRATUITE à Ouagadougou en 24h. Vous payez en espèces au livreur après avoir vérifié votre colis. Pour les autres villes du Burkina ou de la sous-région, des expéditions express sont organisées."
+  }
+];
+
 export default function App() {
   const [currency, setCurrency] = useState('XOF');
   const [selectedBundle, setSelectedBundle] = useState(1);
   const [isAdminView, setIsAdminView] = useState(window.location.pathname === '/admin');
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -44,6 +69,10 @@ export default function App() {
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
   if (isAdminView) {
@@ -118,21 +147,20 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
-            {/* Product Image Showcase */}
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="absolute -top-4 -left-4 bg-pink-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-lg z-10 animate-pulse">
-                ★ BEST-SELLER RETOUCHE
-              </div>
+            {/* Product Image Showcase - Horizontal / Landscape Presentation */}
+            <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
               <div className="rounded-2xl overflow-hidden border-2 border-gray-100 shadow-2xl bg-slate-950 p-2">
-                <img
-                  src="/images/aliver-hair-shadow-black.jpeg"
-                  alt="ALIVER Hair Shadow Powder Noir"
-                  className="w-full object-cover rounded-xl max-h-[480px]"
-                />
+                <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-900 flex items-center justify-center">
+                  <img
+                    src="/images/aliver-hair-shadow-black.jpeg"
+                    alt="ALIVER Hair Shadow Powder Noir"
+                    className="w-full h-full object-cover object-center rounded-xl transform hover:scale-105 transition duration-500"
+                  />
+                </div>
               </div>
-              <div className="mt-3 flex items-center justify-center gap-4 text-xs font-semibold text-gray-600 bg-gray-100 py-2 rounded-xl">
-                <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-emerald-600" /> Miroir & Éponge Intégrés</span>
-                <span className="flex items-center gap-1"><Sparkles className="w-4 h-4 text-amber-500" /> Teinte : Noir Intense</span>
+              <div className="mt-3 flex items-center justify-center gap-4 text-xs font-semibold text-gray-600 bg-gray-100 py-2.5 rounded-xl border border-gray-200">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-600" /> Miroir & Éponge Intégrés</span>
+                <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-amber-500" /> Teinte : Noir Intense</span>
               </div>
             </div>
 
@@ -286,6 +314,118 @@ export default function App() {
         </div>
       </section>
 
+      {/* How to use - Enhanced with Rich Visual Illustrations */}
+      <section className="py-14 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="bg-pink-100 text-pink-700 font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider">
+              FACILE & RAPIDE
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+              Mode d'Emploi Illustré en 3 Étapes
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">
+              Un résultat naturel en moins de 10 secondes grâce à son design tout-en-un breveté.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            {/* Step 1 Card */}
+            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
+
+              <div>
+                {/* Visual Graphic Representation */}
+                <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
+                  <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">1</span>
+
+                  {/* Container Illustration of Puff/Cap Opening */}
+                  <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-16 border-2 border-pink-500/80 rounded-full flex items-center justify-center bg-slate-800 shadow-lg animate-bounce">
+                      <Layers className="w-8 h-8 text-pink-400" />
+                    </div>
+                    <div className="mt-2 text-[11px] font-bold text-pink-300 bg-pink-950/80 px-2.5 py-1 rounded-md border border-pink-800">
+                      Déclipsez la houpette
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="font-bold text-lg text-slate-900 mb-2">1. Ouvrir le Boîtier</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Ouvrez le capuchon supérieur pour accéder au miroir et détachez la douce éponge applicatrice intégrée sous la base de la bouteille.
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs font-semibold text-pink-600">
+                <Check className="w-4 h-4 mr-1" /> Éponge & Miroir 100% intégrés
+              </div>
+            </div>
+
+            {/* Step 2 Card */}
+            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
+
+              <div>
+                {/* Visual Graphic Representation */}
+                <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
+                  <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">2</span>
+
+                  <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-16 border-2 border-amber-500/80 rounded-full flex items-center justify-center bg-slate-800 shadow-lg">
+                      <Zap className="w-8 h-8 text-amber-400 animate-pulse" />
+                    </div>
+                    <div className="mt-2 text-[11px] font-bold text-amber-300 bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800">
+                      Tapotez doucement
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="font-bold text-lg text-slate-900 mb-2">2. Tamponner la Poudre</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Prenez un peu de poudre avec la houpette puis tapotez délicatement sur les zones dégarnies, les racines blanches ou les trous de la barbe.
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs font-semibold text-pink-600">
+                <Check className="w-4 h-4 mr-1" /> Application propre sans coulure
+              </div>
+            </div>
+
+            {/* Step 3 Card */}
+            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between relative overflow-hidden group">
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-pink-100 rounded-full opacity-50 group-hover:scale-150 transition duration-500" />
+
+              <div>
+                {/* Visual Graphic Representation */}
+                <div className="bg-slate-900 text-white rounded-xl p-5 mb-5 h-44 flex flex-col items-center justify-center relative border border-slate-800 shadow-inner">
+                  <span className="absolute top-3 left-3 bg-pink-600 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">3</span>
+
+                  <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-16 border-2 border-emerald-500/80 rounded-full flex items-center justify-center bg-slate-800 shadow-lg">
+                      <Eye className="w-8 h-8 text-emerald-400" />
+                    </div>
+                    <div className="mt-2 text-[11px] font-bold text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-md border border-emerald-800">
+                      Densité 100% Naturelle
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="font-bold text-lg text-slate-900 mb-2">3. Admirer le Résultat</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Contrôlez le rendu à l'aide du miroir intégré. Vos cheveux et votre barbe paraissent immédiatement denses, épais et structurés.
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs font-semibold text-pink-600">
+                <Check className="w-4 h-4 mr-1" /> Tient jusqu'au prochain lavages
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
@@ -331,31 +471,45 @@ export default function App() {
         </div>
       </section>
 
-      {/* How to use */}
-      <section className="py-12 bg-white">
+      {/* FAQ Section */}
+      <section className="py-14 bg-white border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-slate-900 mb-8">
-            Comment l'utiliser en 3 étapes simples ?
-          </h2>
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="bg-pink-100 text-pink-700 font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider">
+              QUESTIONS FRÉQUENTES
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 flex items-center justify-center gap-2">
+              <HelpCircle className="w-7 h-7 text-pink-600" />
+              Foire Aux Questions (FAQ)
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">
+              Des réponses claires à vos interrogations avant de passer commande.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 p-6 rounded-xl text-center relative border border-gray-100">
-              <span className="w-8 h-8 bg-pink-600 text-white font-extrabold rounded-full flex items-center justify-center mx-auto mb-4 text-sm shadow">1</span>
-              <h3 className="font-bold text-slate-900 mb-2">Ouvrir le boîtier</h3>
-              <p className="text-xs text-gray-600">Ouvrez le capuchon supérieur et détachez l'éponge applicatrice située en bas de la bouteille.</p>
-            </div>
-
-            <div className="bg-gray-50 p-6 rounded-xl text-center relative border border-gray-100">
-              <span className="w-8 h-8 bg-pink-600 text-white font-extrabold rounded-full flex items-center justify-center mx-auto mb-4 text-sm shadow">2</span>
-              <h3 className="font-bold text-slate-900 mb-2">Tamponner la poudre</h3>
-              <p className="text-xs text-gray-600">Prenez un peu de poudre avec la houpette puis tapotez doucement sur les zones dégarnies ou les racines.</p>
-            </div>
-
-            <div className="bg-gray-50 p-6 rounded-xl text-center relative border border-gray-100">
-              <span className="w-8 h-8 bg-pink-600 text-white font-extrabold rounded-full flex items-center justify-center mx-auto mb-4 text-sm shadow">3</span>
-              <h3 className="font-bold text-slate-900 mb-2">Admirer le résultat !</h3>
-              <p className="text-xs text-gray-600">Utilisez le miroir intégré pour vérifier. Vos cheveux et votre barbe paraissent plus denses instantanément.</p>
-            </div>
+          <div className="space-y-4">
+            {FAQ_ITEMS.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden transition"
+                >
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center hover:bg-gray-100/80 transition text-sm sm:text-base"
+                  >
+                    <span>{item.question}</span>
+                    <ChevronDown className={`w-5 h-5 text-pink-600 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-200/60 bg-white">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
