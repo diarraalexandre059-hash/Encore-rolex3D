@@ -196,7 +196,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* View Selection Thumbnails */}
+              {/* View Selection Thumbnails (Clean without text labels) */}
               <div className="mt-2.5 grid grid-cols-4 gap-1.5 sm:gap-2">
                 {PRODUCT_VIEWS.map((view, index) => (
                   <button
@@ -214,9 +214,6 @@ export default function App() {
                         <div className="absolute inset-0 bg-pink-600/10" />
                       )}
                     </div>
-                    <p className="text-[9px] sm:text-[10px] font-bold text-slate-800 mt-1 truncate text-center leading-tight">
-                      {view.title}
-                    </p>
                   </button>
                 ))}
               </div>
@@ -286,15 +283,23 @@ export default function App() {
                 </div>
               </div>
 
-              {/* CTA Button */}
-              <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={scrollToForm}
-                  className="w-full bg-pink-600 hover:bg-pink-700 active:scale-95 text-white font-extrabold text-base sm:text-lg py-3.5 sm:py-4 px-6 rounded-xl shadow-xl hover:shadow-pink-200 transition flex items-center justify-center gap-2"
-                >
-                  Commander Maintenant (Payer à la Livraison)
-                  <ArrowDown className="w-5 h-5" />
-                </button>
+              {/* Direct Order Form inside Hero Section */}
+              <div id="order-section" className="mt-6 bg-slate-900 text-white rounded-2xl p-4 sm:p-6 shadow-2xl border border-slate-800 scroll-mt-16">
+                <div className="text-center mb-4">
+                  <span className="bg-pink-600 text-white font-extrabold text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                    COMMANDER MAINTENANT (PAIEMENT À LA LIVRAISON)
+                  </span>
+                  <p className="text-slate-300 text-xs sm:text-sm mt-1.5">
+                    Remplissez ce formulaire pour valider votre commande express sans carte bancaire.
+                  </p>
+                </div>
+
+                <OrderForm
+                  currency={currency}
+                  formatPrice={formatPrice}
+                  selectedBundle={selectedBundle}
+                  setSelectedBundle={setSelectedBundle}
+                />
               </div>
 
               {/* Guarantees */}
@@ -567,27 +572,22 @@ export default function App() {
         </div>
       </section>
 
-      {/* Order Section with Bundle Selection */}
-      <section id="order-section" className="py-10 sm:py-14 bg-slate-900 text-white scroll-mt-12">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4">
-          <div className="text-center mb-6 sm:mb-8">
-            <span className="bg-pink-600 text-white font-extrabold text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider">
-              OFFRE LIMITÉE - OFFRES PACKS
-            </span>
-            <h2 className="text-xl sm:text-4xl font-extrabold mt-2.5">
-              Passez votre Commande Directe
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-1.5">
-              Remplissez le formulaire ci-dessous. Paiement au livreur à la réception de votre colis !
-            </p>
-          </div>
-
-          <OrderForm
-            currency={currency}
-            formatPrice={formatPrice}
-            selectedBundle={selectedBundle}
-            setSelectedBundle={setSelectedBundle}
-          />
+      {/* Bottom CTA Banner (Fast Scroll to Hero Form) */}
+      <section className="py-10 sm:py-12 bg-pink-600 text-white text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
+            Prêt à Obtenir une Chevelure et une Barbe Parfaites ?
+          </h2>
+          <p className="text-pink-100 text-xs sm:text-sm mb-6">
+            Profitez de -25% de réduction et de la livraison GRATUITE à Ouagadougou. Paiement à la réception.
+          </p>
+          <button
+            onClick={scrollToForm}
+            className="bg-slate-900 hover:bg-slate-950 text-white font-extrabold text-base sm:text-lg py-3.5 px-8 rounded-xl shadow-xl transition inline-flex items-center gap-2"
+          >
+            COMMANDER MAINTENANT
+            <ArrowDown className="w-5 h-5" />
+          </button>
         </div>
       </section>
 
